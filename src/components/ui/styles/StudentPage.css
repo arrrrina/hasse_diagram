@@ -1,0 +1,105 @@
+.student-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.student-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+}
+
+.student-panel {
+    border: 1px solid #e8eef4;
+    border-radius: 8px;
+    padding: 14px;
+}
+
+.student-row {
+    display: flex;
+    gap: 8px;
+}
+
+.student-row input,
+.student-row select {
+    flex: 1;
+    padding: 8px;
+}
+
+.student-row button,
+.check-button {
+    background: #2d7dd2;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 12px;
+    cursor: pointer;
+}
+
+.chips {
+    margin-top: 10px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.chip {
+    padding: 5px 10px;
+    background: #eef5ff;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.delete-chip {
+    border: none;
+    background: #dbeafe;
+    border-radius: 999px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.edge-list {
+    margin-top: 10px;
+    max-height: 180px;
+    overflow: auto;
+    font-family: monospace;
+}
+
+.edge-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+}
+
+.edge-row button {
+    border: none;
+    background: #fee2e2;
+    color: #7f1d1d;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.student-message {
+    margin-top: 12px;
+    padding: 10px 12px;
+    border-radius: 6px;
+}
+
+.student-message.success {
+    background: #e9f7ef;
+    color: #1f7a38;
+}
+
+.student-message.error {
+    background: #fdf2f2;
+    color: #b42318;
+}

@@ -1,0 +1,88 @@
+/* components/hasse/styles/MatrixDisplay.css */
+.matrix-display {
+    margin-bottom: 20px;
+}
+
+.matrix-title {
+    color: #2c3e50;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.matrix-container {
+    overflow-x: auto;
+    border: 1px solid #e1e8ed;
+    border-radius: 6px;
+    background: white;
+    max-width: 100%; 
+}
+
+.matrix-table {
+    border-collapse: collapse;
+    width: auto; /* Меняем на auto */
+    min-width: unset; /* Убираем фиксированную минимальную ширину */
+}
+
+.matrix-corner,
+.matrix-header-cell {
+    background: #f8f9fa;
+    padding: 6px 8px; /* Уменьшаем padding */
+    border: 1px solid #e1e8ed;
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: center;
+    font-size: 11px; /* Уменьшаем шрифт */
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    min-width: 35px; /* Уменьшаем минимальную ширину */
+}
+
+.matrix-header-cell {
+    position: relative;
+}
+
+.matrix-cell {
+    padding: 6px 8px; /* Уменьшаем padding */
+    border: 1px solid #e1e8ed;
+    text-align: center;
+    font-size: 11px; /* Уменьшаем шрифт */
+    font-weight: 500;
+    min-width: 35px; /* Уменьшаем минимальную ширину */
+    transition: background-color 0.2s ease;
+}
+
+.matrix-info {
+    background: #f8f9fa;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: #6c757d;
+    border-left: 3px solid #007bff;
+}
+
+/* Компактный стиль для больших матриц */
+.matrix-table.compact .matrix-corner,
+.matrix-table.compact .matrix-header-cell,
+.matrix-table.compact .matrix-cell {
+    padding: 4px 6px;
+    font-size: 10px;
+    min-width: 30px;
+}
+
+/* Адаптивность для матриц */
+@media (max-width: 768px) {
+    .matrix-container {
+        font-size: 10px;
+    }
+    
+    .matrix-corner,
+    .matrix-header-cell,
+    .matrix-cell {
+        padding: 4px 6px;
+        min-width: 30px;
+        font-size: 10px;
+    }
+}

@@ -1,0 +1,161 @@
+/* components/hasse/styles/InputSection.css */
+.input-section {
+    padding: 20px; /* Сделал одинаковый padding */
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Занимает всю высоту */
+}
+
+.input-section-header {
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e1e8ed;
+    padding-bottom: 15px;
+}
+
+.input-section-title {
+    color: #2c3e50;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.variant-generator {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e1e8ed;
+}
+
+.variant-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.variant-input {
+    width: 80px;
+    text-align: center;
+}
+
+.generate-button {
+    padding: 12px 24px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.generate-button:hover {
+    background: #219a52;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+}
+
+.input-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
+.input-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+}
+
+.input-label {
+    font-weight: 500;
+    color: #2c3e50;
+    font-size: 14px;
+
+}
+
+.input-field {
+    padding: 12px 15px;
+    border: 2px solid #e1e8ed;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #3498db;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-start;
+
+}
+
+.primary-button {
+    padding: 12px 30px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.primary-button:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}
+
+.error-message {
+    color: #e74c3c;
+    background: #fdf2f2;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #e74c3c;
+    margin-top: 20px;
+    font-size: 14px;
+
+}
+
+@media (max-width: 768px) {
+    .input-section {
+        padding: 20px;
+    }
+    
+    .input-fields {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .section-title {
+        font-size: 20px;
+    }
+    
+    .form-actions {
+        justify-content: stretch;
+    }
+    
+    .primary-button {
+        width: 100%;
+    }
+}

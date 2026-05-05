@@ -1,0 +1,161 @@
+/* components/hasse/styles/ControlsSection.css */
+.controls-section {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.controls-section-header {
+    margin-bottom: 12px;
+    border-bottom: 2px solid #e1e8ed;
+    padding-bottom: 8px;
+}
+
+.controls-section-title {
+    color: #2c3e50;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.controls-grid {
+    display: grid;
+    grid-template-columns: 180px 180px 180px 180px;
+    gap: 10px;
+    margin-bottom: 12px;
+    justify-content: center;
+}
+
+.control-group {
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #e1e8ed;
+    display: flex;
+    flex-direction: column;
+    min-height: 180px;
+}
+
+.control-group-title {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.control-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.control-button {
+    padding: 8px 10px;
+    border: 2px solid #e1e8ed;
+    border-radius: 4px;
+    background: white;
+    color: #2c3e50;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.control-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.control-button.active {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #45a049;
+}
+
+.matrix-button {
+    border-left: 3px solid #3498db;
+}
+
+.matrix-button:hover:not(:disabled) {
+    background: #ebf5fb;
+    border-color: #2980b9;
+}
+
+.stability-button {
+    border-left: 3px solid #e67e22;
+}
+
+.stability-button:hover:not(:disabled) {
+    background: #fef9e7;
+    border-color: #d35400;
+}
+
+.analysis-button {
+    border-left: 3px solid #9b59b6;
+}
+
+.analysis-button:hover:not(:disabled) {
+    background: #f4ecf7;
+    border-color: #8e44ad;
+}
+
+.euler-button {
+    border-left: 3px solid #59b667;
+}
+
+.euler-button:hover:not(:disabled) {
+    background: #f4ecf7;
+    border-color: #44ad54;
+}
+
+.control-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    margin-top: auto;
+}
+
+.reset-button {
+    padding: 6px 10px;
+    background: #95a5a6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    flex: 1;
+}
+
+.reset-button:hover:not(:disabled) {
+    background: #7f8c8d;
+}
+
+.clear-button {
+    padding: 6px 10px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    flex: 1;
+}
+
+.clear-button:hover:not(:disabled) {
+    background: #c0392b;
+}

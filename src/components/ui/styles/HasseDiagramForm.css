@@ -1,0 +1,99 @@
+/* components/hasse/styles/HasseDiagramForm.css */
+.hasse-diagram-form {
+    min-height: 100vh; /* ЗАМЕНИТЬ height: 100vh на min-height: 100vh */
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Верхняя секция - форма ввода и управление */
+.top-section {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    min-height: auto;
+    height: auto;
+    flex: 1;
+    flex-shrink: 0; /* ДОБАВИТЬ - не сжимается при появлении нижней секции */
+}
+
+.input-container {
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    min-height: 300px;
+    flex-shrink: 0; /* ДОБАВИТЬ */
+}
+
+.controls-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    min-height: 300px;
+    flex-shrink: 0; /* ДОБАВИТЬ */
+}
+
+/* Нижняя секция - матрицы (появляется только при наличии результатов) */
+.bottom-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    min-height: 200px;
+    flex-shrink: 0;
+}
+
+/* Адаптивность */
+@media (max-width: 968px) {
+    .top-section {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .input-container,
+    .controls-container {
+        min-width: 100%;
+        min-height: 250px;
+    }
+
+    .hasse-diagram-form {
+        height: auto;
+        min-height: 50vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .hasse-diagram-form {
+        padding: 10px;
+        gap: 15px;
+    }
+}
+
+.section-common {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.title-common {
+    color: #2c3e50;
+    margin: 0;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.input-container > *,
+.controls-container > * {
+    flex: 1;
+}
