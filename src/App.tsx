@@ -1,88 +1,234 @@
-import React, { useState} from 'react';
-import HasseDiagramForm from './components/HasseDiagramForm';
-import { Graph } from './lib/Graph';
-import GraphVisualization from './components/GraphVisualization';
+import React, { useState } from 'react';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Graph } from './lib/core/Graph';
+import GraphVisualization from './components/ui/GraphVisualization';
+import { Stability } from './lib/algorithms/Stability';
+import { EulerGraph } from './lib/algorithms/EulerGraph';
+import { HamiltonianGraph } from './lib/algorithms/HamiltonianGraph';
+import HasseDiagramForm from './components/ui/HasseDiagramForm';
+import { LoginPage } from './components/ui/LoginPage';
+import { AppHeader } from './components/ui/AppHeader';
+import { getRole, isAuthenticated } from './services/auth';
+import { StudentPage } from './components/ui/StudentPage';
+import './App.css';
 
-const App: React.FC = () => {
+const TeacherPage: React.FC = () => {
+  const navigate = useNavigate();
   const [graph, setGraph] = useState<Graph<number, any> | null>(null);
   const [resetFlag, setResetFlag] = useState(false);
   const [highlightedNodes, setHighlightedNodes] = useState<{
     internal?: string[];
     external?: string[];
   }>({});
-  
+  const [highlightedBlocks, setHighlightedBlocks] = useState<Graph<number, any>[]>([]);
+  const [isBlockModeActive, setIsBlockModeActive] = useState(false);
+  const [minimumSpanningTree, setMinimumSpanningTree] = useState<Graph<number, any> | null>(null);
+  const [addedEdgeIds, setAddedEdgeIds] = useState<string[]>([]);
+  const [isEulerianMode, setIsEulerianMode] = useState(false);
+  const [isHamiltonianMode, setIsHamiltonianMode] = useState(false);
+
+  if (!isAuthenticated()) {
+    return <Navigate to="/auth" replace />;
+  }
+  if (getRole() !== 'TEACHER') {
+    return <Navigate to="/student" replace />;
+  }
 
   const handleInternalStability = () => {
     if (!graph) return;
-    const internalSet = graph.findMaxInternalStableSet();
-    setHighlightedNodes({
-      internal: internalSet.map(n => n.id),
-      external: undefined
-    });
+    const internalSet = Stability.findMaxInternalStableSet(graph);
+    setHighlightedNodes({ internal: internalSet.map(n => n.id), external: undefined });
+    setHighlightedBlocks([]);
+    setIsBlockModeActive(false);
+    setIsEulerianMode(false);
+    setIsHamiltonianMode(false);
   };
 
   const handleExternalPositiveStability = () => {
     if (!graph) return;
-    const externalSet = graph.findExternalStabilityPositive();
-    setHighlightedNodes({
-      external: externalSet.map(n => n.id),
-      internal: undefined
-    });
+    const externalSet = Stability.findExternalStabilityPositive(graph);
+    setHighlightedNodes({ external: externalSet.map(n => n.id), internal: undefined });
+    setHighlightedBlocks([]);
+    setIsBlockModeActive(false);
+    setIsEulerianMode(false);
+    setIsHamiltonianMode(false);
   };
+
   const handleExternalNegativeStability = () => {
     if (!graph) return;
-    const externalSet = graph.findExternalStabilityNegative();
-    setHighlightedNodes({
-      external: externalSet.map(n => n.id),
-      internal: undefined
-    });
+    const externalSet = Stability.findExternalStabilityNegative(graph);
+    setHighlightedNodes({ external: externalSet.map(n => n.id), internal: undefined });
+    setHighlightedBlocks([]);
+    setIsBlockModeActive(false);
+    setIsEulerianMode(false);
+    setIsHamiltonianMode(false);
   };
 
   const handleResetHighlighting = () => {
     setHighlightedNodes({});
+    setHighlightedBlocks([]);
+    setMinimumSpanningTree(null);
+    setIsBlockModeActive(false);
+    setResetFlag(prev => !prev);
+    setIsEulerianMode(false);
+    setIsHamiltonianMode(false);
+    setAddedEdgeIds([]);
     setResetFlag(prev => !prev);
   };
-  
+
   const handleDiagramBuilt = (builtGraph: Graph<number, any>) => {
-     console.log('handleDiagramBuilt called, isDirected:', builtGraph.isDirected);
     setGraph(builtGraph);
+    setHighlightedNodes({});
+    setHighlightedBlocks([]);
+    setIsBlockModeActive(false);
+    setIsEulerianMode(false);
+    setIsHamiltonianMode(false);
+    setAddedEdgeIds([]);
   };
 
   const handleConvertToUndirected = () => {
-    if (graph && graph.isDirected) {
-        const undirectedGraph = graph.convertToUndirected(); // ← это вызывает твой метод внутри Graph
-        setGraph(undirectedGraph); 
-        
+    if (graph && graph.is_directed) {
+      const undirectedGraph = graph.convertToUndirected();
+      setGraph(undirectedGraph);
+      setHighlightedNodes({});
+      setHighlightedBlocks([]);
+      setIsBlockModeActive(false);
+      setIsEulerianMode(false);
+      setIsHamiltonianMode(false);
+      setAddedEdgeIds([]);
     }
-    
-};
-console.log('graph:', graph);
-console.log('App render, graph isDirected:', graph?.isDirected);
+  };
+
+  const handleImageBuilt = (builtGraph: Graph<number, any>) => {
+    setGraph(builtGraph);
+    setHighlightedNodes({});
+    setHighlightedBlocks([]);
+    setIsBlockModeActive(false);
+    setIsEulerianMode(false);
+    setIsHamiltonianMode(false);
+    setAddedEdgeIds([]);
+  };
+
+  const handleFindBlocks = (blocks: Graph<number, any>[]) => {
+    setHighlightedBlocks(blocks);
+    setIsBlockModeActive(true);
+    setHighlightedNodes({});
+    setIsEulerianMode(false);
+    setIsHamiltonianMode(false);
+    setAddedEdgeIds([]);
+  };
+
+  const handleAddWeights = () => {
+    if (!graph) return;
+    const weightGraph = graph.createWeightedGraph();
+    setGraph(weightGraph);
+    setHighlightedNodes({});
+    setHighlightedBlocks([]);
+    setIsBlockModeActive(false);
+    setIsEulerianMode(false);
+    setIsHamiltonianMode(false);
+    setAddedEdgeIds([]);
+  };
+
+  const handleFindMinimumSpanningTree = (mst: Graph<number, any>) => {
+    setMinimumSpanningTree(mst);
+    setHighlightedNodes({});
+    setHighlightedBlocks([]);
+    setIsBlockModeActive(false);
+    setIsEulerianMode(false);
+    setIsHamiltonianMode(false);
+    setAddedEdgeIds([]);
+  };
+
+  const handleMakeEulerian = (g: Graph<number, any>) => {
+    setGraph(g);
+    const newEdgeIds = EulerGraph.getAddedEdgeIds?.() || [];
+    setAddedEdgeIds(newEdgeIds);
+    setIsEulerianMode(true);
+    setIsHamiltonianMode(false);
+    setHighlightedNodes({});
+    setHighlightedBlocks([]);
+    setIsBlockModeActive(false);
+    setMinimumSpanningTree(null);
+  };
+
+  const handleMakeHamiltonian = (g: Graph<number, any>) => {
+    setGraph(g);
+    const newEdgeIds = HamiltonianGraph.getAddedEdgeIds?.() || [];
+    setAddedEdgeIds(newEdgeIds);
+    setIsHamiltonianMode(true);
+    setIsEulerianMode(false);
+    setHighlightedNodes({});
+    setHighlightedBlocks([]);
+    setIsBlockModeActive(false);
+    setMinimumSpanningTree(null);
+  };
+
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
-      <h1>Диаграмма Хассе для отношения делимости</h1>
-      
-      
-      <HasseDiagramForm 
-      onDiagramBuilt={handleDiagramBuilt}
-      onInternalStability={handleInternalStability}
-      onExternalPositiveStability={handleExternalPositiveStability}
-      onExternalNegativeStability={handleExternalNegativeStability}
-      onResetHighlighting = {handleResetHighlighting}
-      handleConvertToUndirected={handleConvertToUndirected}
-      isDirected={graph ? graph.isDirected : true} 
-       />
-      
+    <div className="app-container">
+      <AppHeader onLogout={() => navigate('/auth')} />
+
+      <HasseDiagramForm
+        currentGraph={graph}
+        onDiagramBuilt={handleDiagramBuilt}
+        onInternalStability={handleInternalStability}
+        onExternalPositiveStability={handleExternalPositiveStability}
+        onExternalNegativeStability={handleExternalNegativeStability}
+        onResetHighlighting={handleResetHighlighting}
+        handleConvertToUndirected={handleConvertToUndirected}
+        isDirected={graph ? graph.is_directed : true}
+        onImageBuilt={handleImageBuilt}
+        onFindBlocks={handleFindBlocks}
+        isBlockModeActive={isBlockModeActive}
+        onAddWeights={handleAddWeights}
+        onFindMinimumSpanningTree={handleFindMinimumSpanningTree}
+        onMakeEulerian={handleMakeEulerian}
+        onMakeHamiltonian={handleMakeHamiltonian}
+      />
+
       {graph && (
         <GraphVisualization
-         graph={graph}
-         isDirected={graph.isDirected} 
-         highlightedNodes={highlightedNodes}
-         resetTrigger={resetFlag}
-          />
-        )}
+          graph={graph}
+          isDirected={graph.is_directed}
+          highlightedNodes={highlightedNodes}
+          highlightedBlocks={highlightedBlocks}
+          minimumSpanningTree={minimumSpanningTree}
+          resetTrigger={resetFlag}
+          addedEdges={isEulerianMode || isHamiltonianMode ? addedEdgeIds : []}
+        />
+      )}
     </div>
   );
+};
+
+const App: React.FC = () => {
+  return (
+    <Routes>
+      <Route path="/auth" element={<AuthRoute />} />
+      <Route path="/student" element={<StudentRoute />} />
+      <Route path="/*" element={<TeacherPage />} />
+    </Routes>
+  );
+};
+
+const AuthRoute: React.FC = () => {
+  const navigate = useNavigate();
+
+  if (isAuthenticated()) {
+    return <Navigate to={getRole() === 'STUDENT' ? '/student' : '/'} replace />;
+  }
+
+  return <LoginPage onLoginSuccess={() => navigate(getRole() === 'STUDENT' ? '/student' : '/')} />;
+};
+
+const StudentRoute: React.FC = () => {
+  if (!isAuthenticated()) {
+    return <Navigate to="/auth" replace />;
+  }
+  if (getRole() !== 'STUDENT') {
+    return <Navigate to="/" replace />;
+  }
+  return <StudentPage />;
 };
 
 export default App;

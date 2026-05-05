@@ -1,0 +1,41 @@
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e1e8ed;
+}
+
+.app-header-title {
+    margin: 0;
+    font-size: 22px;
+    color: #2c3e50;
+}
+
+.app-header-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.app-header-name {
+    font-size: 14px;
+    color: #7f8c8d;
+}
+
+.logout-button {
+    padding: 8px 16px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+    background: #c0392b;
+}
